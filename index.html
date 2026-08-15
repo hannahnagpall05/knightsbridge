@@ -348,33 +348,154 @@
   .zone{transition:background .3s;}
   .zone:hover{background:rgba(203,167,110,0.06);}
 
+  /* scroll progress bar */
+  #progress-bar{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:linear-gradient(90deg,var(--brass),var(--brass-bright));
+    z-index:200;transition:width .1s linear;
+  }
+
+  /* header shrink + active link */
+  header{transition:padding .3s ease, background .3s ease;}
+  header.scrolled .nav-inner{padding:11px 32px;}
+  nav.links a.active{color:var(--brass-bright);}
+  nav.links a.active::after{transform:scaleX(1);}
+
+  /* mobile menu */
+  .menu-btn{position:relative;z-index:150;}
+  .mobile-nav{
+    position:fixed;inset:0;background:var(--ink);z-index:120;
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;
+    padding:32px;transform:translateY(-100%);transition:transform .45s cubic-bezier(.16,.8,.3,1);
+  }
+  .mobile-nav.open{transform:translateY(0);}
+  .mobile-nav a{
+    font-family:'Fraunces',serif;font-size:32px;color:var(--ivory);padding:12px 0;
+    border-top:1px solid var(--line-dark);width:100%;
+  }
+  .mobile-nav a:first-child{border-top:none;}
+  .mobile-nav .mobile-cta{
+    margin-top:24px;font-family:'Inter',sans-serif;font-size:13px;text-transform:uppercase;
+    letter-spacing:0.06em;color:var(--ink);background:var(--brass);padding:14px 26px;border:none;
+  }
+
+  /* magnetic buttons */
+  .magnetic{will-change:transform;}
+
+  /* back to top */
+  #back-to-top{
+    position:fixed;right:24px;bottom:24px;width:46px;height:46px;border-radius:50%;
+    background:var(--ink);color:var(--brass-bright);border:1px solid var(--brass);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:90;
+    opacity:0;pointer-events:none;transform:translateY(12px);
+    transition:opacity .3s,transform .3s;font-size:16px;
+  }
+  #back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+  #back-to-top:hover{background:var(--brass);color:var(--ink);}
+
+  /* blueprint grid texture on dark sections */
+  .section.dark, .hero, .mobile-nav{
+    background-image:
+      linear-gradient(rgba(203,167,110,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(203,167,110,0.045) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-color:var(--ink);
+  }
+
+  /* skyline signature graphic */
+  .skyline-band{padding:70px 0 60px;background:var(--ink);border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);}
+  .skyline-svg{width:100%;height:auto;display:block;}
+  .skyline-svg .twr{
+    fill:none;stroke:var(--brass);stroke-width:1.4;
+    stroke-dasharray:1600;stroke-dashoffset:1600;
+    transition:stroke-dashoffset 1.8s cubic-bezier(.16,.8,.3,1);
+  }
+  .skyline-band.in-view .skyline-svg .twr{stroke-dashoffset:0;}
+  .skyline-svg .twr:nth-child(1){transition-delay:.0s;}
+  .skyline-svg .twr:nth-child(2){transition-delay:.12s;}
+  .skyline-svg .twr:nth-child(3){transition-delay:.24s;}
+  .skyline-svg .twr:nth-child(4){transition-delay:.36s;}
+  .skyline-svg .twr:nth-child(5){transition-delay:.48s;}
+  .skyline-svg .gline{stroke:rgba(246,243,236,0.15);stroke-width:1;}
+  .skyline-caption{
+    display:flex;justify-content:space-between;align-items:center;margin-top:20px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;
+    text-transform:uppercase;color:rgba(246,243,236,0.5);flex-wrap:wrap;gap:10px;
+  }
+
+  /* lightbox */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(18,21,26,0.96);z-index:300;
+    display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;
+    transition:opacity .3s;
+  }
+  .lightbox.open{opacity:1;pointer-events:auto;}
+  .lightbox img{max-width:88vw;max-height:82vh;object-fit:contain;border:1px solid var(--line-dark);}
+  .lightbox .lb-close,.lightbox .lb-prev,.lightbox .lb-next{
+    position:absolute;background:none;border:1px solid rgba(246,243,236,0.3);color:var(--ivory);
+    cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:14px;
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s,color .2s;
+  }
+  .lightbox .lb-close:hover,.lightbox .lb-prev:hover,.lightbox .lb-next:hover{border-color:var(--brass-bright);color:var(--brass-bright);}
+  .lightbox .lb-close{top:24px;right:24px;}
+  .lightbox .lb-prev{left:24px;top:50%;transform:translateY(-50%);}
+  .lightbox .lb-next{right:24px;top:50%;transform:translateY(-50%);}
+  .lightbox .lb-caption{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;
+    color:rgba(246,243,236,0.6);text-transform:uppercase;
+  }
+  .gallery-grid a{cursor:pointer;}
+
+  @media (max-width:900px){
+    .lightbox .lb-prev,.lightbox .lb-next{width:38px;height:38px;font-size:12px;}
+    .mobile-nav a{font-size:26px;}
+  }
+
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{transition:none !important;animation:none !important;}
     .reveal,.reveal-stagger > *,.hero-anim{opacity:1 !important;transform:none !important;}
+    .skyline-svg .twr{stroke-dashoffset:0 !important;}
+    .mobile-nav{transition:none;}
   }
 </style>
 </head>
 <body>
 
-<header>
+<div id="progress-bar"></div>
+
+<header id="site-header">
   <div class="nav-inner">
     <a href="#top" class="brand">
       <img src="https://www.atsknightbridge.com/assets/kb-mark-D3yLZqe2.png" alt="KnightsBridge mark" referrerpolicy="no-referrer">
       <span class="brand-word">Knights<span>Bridge</span> — an ATS home</span>
     </a>
-    <nav class="links">
-      <a href="#overview">Overview</a>
-      <a href="#amenities">Amenities</a>
-      <a href="#plans">Plans</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#specifications">Specifications</a>
-      <a href="#location">Location</a>
-      <a href="#faq">FAQ</a>
+    <nav class="links" id="desktop-nav">
+      <a href="#overview" data-target="overview">Overview</a>
+      <a href="#amenities" data-target="amenities">Amenities</a>
+      <a href="#plans" data-target="plans">Plans</a>
+      <a href="#gallery" data-target="gallery">Gallery</a>
+      <a href="#specifications" data-target="specifications">Specifications</a>
+      <a href="#location" data-target="location">Location</a>
+      <a href="#faq" data-target="faq">FAQ</a>
     </nav>
-    <a href="#enquire" class="nav-cta">Enquire</a>
+    <a href="#enquire" class="nav-cta magnetic">Enquire</a>
+    <button class="menu-btn" id="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
 </header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#overview">Overview</a>
+  <a href="#amenities">Amenities</a>
+  <a href="#plans">Plans</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#specifications">Specifications</a>
+  <a href="#location">Location</a>
+  <a href="#faq">FAQ</a>
+  <a href="#enquire" class="mobile-cta">Enquire</a>
+</div>
 
 <section class="hero" id="top">
   <div class="hero-media">
@@ -416,6 +537,25 @@
       <div class="overview-media reveal">
         <img src="https://www.atsknightbridge.com/assets/elevation-aerial-Cdkj8bN7.jpg" alt="Aerial night view of the illuminated towers, lagoon pool and landscaped podium" referrerpolicy="no-referrer">
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="skyline-band reveal" id="skyline-graphic">
+  <div class="wrap">
+    <svg class="skyline-svg" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <line class="gline" x1="0" y1="230" x2="1200" y2="230"></line>
+      <rect class="twr" x="120" y="70" width="70" height="160"></rect>
+      <rect class="twr" x="270" y="40" width="70" height="190"></rect>
+      <rect class="twr" x="420" y="10" width="80" height="220"></rect>
+      <rect class="twr" x="580" y="55" width="70" height="175"></rect>
+      <rect class="twr" x="730" y="85" width="70" height="145"></rect>
+      <line class="gline" x1="120" y1="230" x2="120" y2="245"></line>
+      <line class="gline" x1="800" y1="230" x2="800" y2="245"></line>
+    </svg>
+    <div class="skyline-caption">
+      <span>Five towers · 44 storeys · one residence per floor</span>
+      <span>Elevation study — not to scale</span>
     </div>
   </div>
 </section>
@@ -525,18 +665,29 @@
       <h2>A glimpse of everyday life here</h2>
     </div>
   </div>
-  <div class="gallery-grid reveal-stagger">
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" alt="Expansive living and dining room of a sky residence with layered lighting" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" alt="Master bedroom with panelled headboard wall and herringbone oak floor" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" alt="Island kitchen with stone counters and integrated appliances" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" alt="Formal dining and lounge arrangement inside a duplex residence" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" alt="Four-poster bedroom suite with a seating area and full-height windows" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" alt="Residents' lounge with velvet armchairs and curated artwork" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" alt="Evening light across a residence bedroom lounge" referrerpolicy="no-referrer"></a>
-    <a href="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" alt="Guest suite with soft leather headboard and warm ambient lighting" referrerpolicy="no-referrer"></a>
+  <div class="gallery-grid reveal-stagger" id="gallery-grid">
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" data-caption="Expansive living and dining room of a sky residence with layered lighting"><img src="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" alt="Expansive living and dining room of a sky residence with layered lighting" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" data-caption="Master bedroom with panelled headboard wall and herringbone oak floor"><img src="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" alt="Master bedroom with panelled headboard wall and herringbone oak floor" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" data-caption="Island kitchen with stone counters and integrated appliances"><img src="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" alt="Island kitchen with stone counters and integrated appliances" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" data-caption="Formal dining and lounge arrangement inside a duplex residence"><img src="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" alt="Formal dining and lounge arrangement inside a duplex residence" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" data-caption="Four-poster bedroom suite with a seating area and full-height windows"><img src="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" alt="Four-poster bedroom suite with a seating area and full-height windows" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" data-caption="Residents' lounge with velvet armchairs and curated artwork"><img src="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" alt="Residents' lounge with velvet armchairs and curated artwork" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" data-caption="Evening light across a residence bedroom lounge"><img src="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" alt="Evening light across a residence bedroom lounge" referrerpolicy="no-referrer"></a>
+    <a data-full="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" data-caption="Guest suite with soft leather headboard and warm ambient lighting"><img src="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" alt="Guest suite with soft leather headboard and warm ambient lighting" referrerpolicy="no-referrer"></a>
   </div>
   <div style="height:120px;"></div>
 </section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-prev" id="lb-prev" aria-label="Previous">←</button>
+  <img id="lb-img" src="" alt="" referrerpolicy="no-referrer">
+  <button class="lb-next" id="lb-next" aria-label="Next">→</button>
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
 
 <section class="section dark" id="specifications">
   <div class="wrap">
@@ -677,6 +828,101 @@
 </footer>
 
 <script>
+  // Scroll progress bar + header shrink + back-to-top visibility
+  const progressBar = document.getElementById('progress-bar');
+  const header = document.getElementById('site-header');
+  const backToTop = document.getElementById('back-to-top');
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+    header.classList.toggle('scrolled', scrollTop > 40);
+    backToTop.classList.toggle('show', scrollTop > 600);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  backToTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  function closeMobileNav(){
+    mobileNav.classList.remove('open');
+    menuToggle.textContent = '☰';
+    menuToggle.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.textContent = isOpen ? '✕' : '☰';
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMobileNav));
+
+  // Active nav link tracking
+  const navLinks = document.querySelectorAll('#desktop-nav a[data-target]');
+  const trackedSections = Array.from(navLinks).map(a=>document.getElementById(a.dataset.target)).filter(Boolean);
+  if('IntersectionObserver' in window && trackedSections.length){
+    const navIo = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          navLinks.forEach(a=>a.classList.remove('active'));
+          const active = document.querySelector(`#desktop-nav a[data-target="${entry.target.id}"]`);
+          if(active) active.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    trackedSections.forEach(s=>navIo.observe(s));
+  }
+
+  // Magnetic buttons
+  if(!window.matchMedia('(pointer: coarse)').matches){
+    document.querySelectorAll('.magnetic').forEach(btn=>{
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width/2) * 0.25;
+        const y = (e.clientY - r.top - r.height/2) * 0.4;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', ()=>{ btn.style.transform = 'translate(0,0)'; });
+    });
+  }
+
+  // Lightbox
+  const galleryLinks = Array.from(document.querySelectorAll('#gallery-grid a'));
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCaption = document.getElementById('lb-caption');
+  let lbIndex = 0;
+  function openLightbox(i){
+    lbIndex = (i + galleryLinks.length) % galleryLinks.length;
+    const link = galleryLinks[lbIndex];
+    lbImg.src = link.dataset.full;
+    lbImg.alt = link.dataset.caption || '';
+    lbCaption.textContent = link.dataset.caption || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  galleryLinks.forEach((link, i)=>{
+    link.addEventListener('click', (e)=>{ e.preventDefault(); openLightbox(i); });
+  });
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', ()=>openLightbox(lbIndex - 1));
+  document.getElementById('lb-next').addEventListener('click', ()=>openLightbox(lbIndex + 1));
+  lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e)=>{
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') openLightbox(lbIndex - 1);
+    if(e.key === 'ArrowRight') openLightbox(lbIndex + 1);
+  });
+
   // Count-up hero stats
   function animateCount(el){
     const target = parseFloat(el.dataset.count);
