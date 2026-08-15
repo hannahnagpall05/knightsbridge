@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATS KnightsBridge — Crafted for the New-Age Nobility</title>
+<meta name="description" content="ATS KnightsBridge offers limited-edition four-bedroom sky residences and duplex penthouses with a 55,000 sq. ft. clubhouse, curated landscape and skyline views.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,440;0,9..144,560;0,9..144,600;1,9..144,440&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12151a;
+    --ink-soft:#1b2027;
+    --stone:#ede8df;
+    --stone-deep:#e2dbcc;
+    --ivory:#f6f3ec;
+    --brass:#b08d57;
+    --brass-bright:#cba76e;
+    --teal:#24413c;
+    --charcoal:#22262b;
+    --line-dark: rgba(246,243,236,0.18);
+    --line-light: rgba(34,38,43,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--stone);
+    color:var(--charcoal);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:560;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+  ::selection{background:var(--brass);color:var(--ink);}
+
+  /* dimension-line divider — the signature motif */
+  .dim-line{
+    display:flex;align-items:center;gap:10px;
+    width:100%;
+  }
+  .dim-line .tick-row{
+    flex:1;height:1px;background:currentColor;opacity:0.28;position:relative;
+  }
+  .dim-line .tick-row::before,.dim-line .tick-row::after{
+    content:"";position:absolute;top:-4px;width:1px;height:9px;background:currentColor;opacity:0.5;
+  }
+  .dim-line .tick-row::before{left:0;}
+  .dim-line .tick-row::after{right:0;}
+  .dim-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;
+    text-transform:uppercase;opacity:0.65;white-space:nowrap;
+  }
+
+  /* nav */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(18,21,26,0.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;max-width:1200px;margin:0 auto;color:var(--ivory);
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand img{height:34px;width:auto;filter:brightness(0) invert(1);}
+  .brand-word{font-family:'Fraunces',serif;font-size:15px;letter-spacing:0.06em;}
+  .brand-word span{color:var(--brass-bright);}
+  nav.links{display:flex;gap:28px;}
+  nav.links a{
+    font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;
+    color:rgba(246,243,236,0.72);transition:color .2s;position:relative;padding-bottom:3px;
+  }
+  nav.links a::after{
+    content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+    background:var(--brass-bright);transform:scaleX(0);transform-origin:right;
+    transition:transform .35s cubic-bezier(.16,.8,.3,1);
+  }
+  nav.links a:hover::after{transform:scaleX(1);transform-origin:left;}
+  nav.links a:hover{color:var(--brass-bright);}
+  .nav-cta{
+    font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+    padding:10px 20px;border:1px solid var(--brass);color:var(--brass-bright);
+    transition:background .2s,color .2s;
+  }
+  .nav-cta:hover{background:var(--brass);color:var(--ink);}
+  .menu-btn{display:none;background:none;border:none;color:var(--ivory);font-size:22px;cursor:pointer;}
+
+  /* hero */
+  .hero{
+    min-height:100vh;position:relative;color:var(--ivory);
+    display:flex;align-items:flex-end;
+    background:var(--ink);
+  }
+  .hero-media{position:absolute;inset:0;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;opacity:0.62;}
+  .hero-media::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(18,21,26,0.35) 0%, rgba(18,21,26,0.35) 40%, rgba(18,21,26,0.96) 100%);
+  }
+  .hero-content{position:relative;z-index:2;width:100%;padding:0 32px 80px;max-width:1200px;margin:0 auto;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--brass-bright);margin-bottom:22px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--brass-bright);}
+  .hero h1{
+    font-size:clamp(40px,6.4vw,86px);
+    font-weight:440;line-height:1.02;max-width:920px;margin-bottom:20px;
+  }
+  .hero h1 em{font-style:italic;color:var(--brass-bright);font-weight:440;}
+  .hero-sub{
+    font-size:17px;color:rgba(246,243,236,0.78);max-width:480px;margin-bottom:40px;
+    font-weight:400;
+  }
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px;}
+  .btn-primary{
+    background:var(--brass);color:var(--ink);padding:15px 30px;font-size:13px;
+    letter-spacing:0.06em;text-transform:uppercase;font-weight:500;
+    transition:background .2s;
+  }
+  .btn-primary:hover{background:var(--brass-bright);}
+  .btn-ghost{
+    border:1px solid rgba(246,243,236,0.4);color:var(--ivory);padding:15px 30px;
+    font-size:13px;letter-spacing:0.06em;text-transform:uppercase;transition:border-color .2s,background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--brass-bright);background:rgba(203,167,110,0.08);}
+
+  .stat-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line-dark);
+  }
+  .stat{padding:22px 24px 0;}
+  .stat .num{font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);font-weight:500;color:var(--ivory);}
+  .stat .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(246,243,236,0.55);margin-top:6px;}
+
+  /* section shell */
+  .section{padding:120px 0;}
+  .section.dark{background:var(--ink);color:var(--ivory);}
+  .section-head{max-width:720px;margin-bottom:56px;}
+  .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--brass);margin-bottom:16px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .kicker::after{
+    content:"";flex:1;max-width:64px;height:1px;background:currentColor;opacity:.5;
+    transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,.8,.3,1) .1s;
+  }
+  .section-head.in-view .kicker::after{transform:scaleX(1);}
+  .section.dark .kicker{color:var(--brass-bright);}
+  .section-head h2{font-size:clamp(30px,3.6vw,46px);font-weight:500;line-height:1.12;}
+  .section-head p{margin-top:18px;font-size:16.5px;color:#4a4d52;max-width:600px;}
+  .section.dark .section-head p{color:rgba(246,243,236,0.72);}
+
+  /* overview */
+  .overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .feature-list{list-style:none;padding:0;margin:0;}
+  .feature-list li{
+    display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line-light);
+    font-size:15.5px;
+  }
+  .feature-list li:last-child{border-bottom:1px solid var(--line-light);}
+  .feature-list .idx{font-family:'JetBrains Mono',monospace;color:var(--brass);font-size:13px;padding-top:2px;}
+  .overview-media{border:1px solid var(--line-light);padding:8px;background:var(--ivory);}
+  .overview-media img{width:100%;height:100%;object-fit:cover;}
+
+  /* landscape / amenities pill row */
+  .pill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-light);border:1px solid var(--line-light);margin-top:8px;}
+  .pill{background:var(--stone);padding:26px 24px;font-size:14.5px;display:flex;align-items:center;gap:12px;color:var(--charcoal);}
+  .pill::before{content:"";width:6px;height:6px;background:var(--brass);flex:none;border-radius:1px;transform:rotate(45deg);}
+
+  /* clubhouse */
+  .club-layout{display:grid;grid-template-columns:0.9fr 1.1fr;gap:0;border:1px solid var(--line-dark);}
+  .club-media{position:relative;min-height:420px;}
+  .club-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+  .club-zones{display:grid;grid-template-columns:1fr 1fr;}
+  .zone{padding:30px 28px;border-left:1px solid var(--line-dark);border-top:1px solid var(--line-dark);}
+  .zone:nth-child(-n+2){border-top:none;}
+  .zone h3{font-size:19px;font-weight:500;margin-bottom:10px;color:var(--brass-bright);}
+  .zone p{font-size:14px;color:rgba(246,243,236,0.7);margin:0;}
+
+  /* plans */
+  .plan-tabs{display:flex;gap:8px;margin-bottom:28px;}
+  .plan-tab{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
+    padding:11px 22px;border:1px solid var(--line-light);background:transparent;cursor:pointer;color:var(--charcoal);
+  }
+  .plan-tab.active{background:var(--ink);color:var(--ivory);border-color:var(--ink);}
+  .plan-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:0;border:1px solid var(--line-light);}
+  .plan-media{background:var(--ivory);padding:20px;display:flex;align-items:center;}
+  .plan-media img{width:100%;}
+  .plan-schedule{padding:36px 34px;background:var(--stone);}
+  .plan-schedule .intro{font-size:14.5px;color:#4a4d52;margin-bottom:24px;}
+  .room-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:13px 0;border-top:1px solid var(--line-light);font-size:14.5px;
+  }
+  .room-row .dim{font-family:'JetBrains Mono',monospace;color:var(--brass);font-size:13px;}
+  .plan-note{margin-top:22px;font-size:12px;color:#7a7d81;font-style:italic;}
+
+  /* walkthrough */
+  .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .video-frame{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid var(--line-dark);}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* gallery */
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:6px;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%);transition:filter .3s, transform .5s;}
+  .gallery-grid a{overflow:hidden;display:block;height:100%;}
+  .gallery-grid img:hover{filter:grayscale(0%);transform:scale(1.04);}
+  .gallery-grid a:nth-child(1),.gallery-grid a:nth-child(4){grid-row:span 2;}
+
+  /* specs */
+  .spec-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-dark);border-left:1px solid var(--line-dark);}
+  .spec{padding:30px 26px;border-right:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);}
+  .spec .mono-tag{font-size:11px;color:var(--brass-bright);margin-bottom:14px;display:block;}
+  .spec h3{font-size:17px;font-weight:500;margin-bottom:10px;}
+  .spec p{margin:0;font-size:13.5px;color:rgba(246,243,236,0.68);}
+
+  /* location */
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .loc-list{list-style:none;padding:0;margin:0;}
+  .loc-list li{
+    display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--line-light);font-size:15px;
+  }
+  .loc-list li:last-child{border-bottom:1px solid var(--line-light);}
+  .loc-list .time{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--brass);white-space:nowrap;padding-left:16px;}
+  .map-frame{border:1px solid var(--line-light);height:100%;min-height:340px;position:relative;}
+  .map-frame iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(30%) contrast(1.05);}
+
+  /* faq */
+  .faq-item{border-top:1px solid var(--line-light);}
+  .faq-item:last-child{border-bottom:1px solid var(--line-light);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;padding:24px 0;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Fraunces',serif;
+    font-size:18px;font-weight:440;color:var(--charcoal);
+  }
+  .faq-q .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brass);margin-right:14px;font-weight:400;}
+  .faq-q .plus{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--brass);transition:transform .25s;flex:none;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{margin:0 0 24px;font-size:15px;color:#4a4d52;max-width:680px;padding-right:40px;}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;}
+  .contact-info h3{font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--brass-bright);margin-bottom:10px;font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .contact-info .block{margin-bottom:34px;}
+  .contact-info p{margin:0;font-size:15px;color:rgba(246,243,236,0.78);}
+  .contact-info .phone{font-family:'Fraunces',serif;font-size:24px;color:var(--ivory);}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  form .full{grid-column:1/-1;}
+  input,select,textarea{
+    width:100%;background:transparent;border:none;border-bottom:1px solid rgba(246,243,236,0.3);
+    color:var(--ivory);font-family:'Inter',sans-serif;font-size:14.5px;padding:12px 2px;
+  }
+  input::placeholder,textarea::placeholder{color:rgba(246,243,236,0.42);}
+  select option{color:#111;}
+  textarea{resize:vertical;min-height:70px;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brass-bright);}
+  .submit-btn{
+    grid-column:1/-1;margin-top:10px;background:var(--brass);color:var(--ink);border:none;
+    padding:16px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-weight:500;
+  }
+  .submit-btn:hover{background:var(--brass-bright);}
+
+  footer{background:var(--ink);color:rgba(246,243,236,0.55);padding:40px 0;border-top:1px solid var(--line-dark);}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-brand{display:flex;align-items:center;gap:10px;}
+  .footer-brand img{height:24px;filter:brightness(0) invert(1);opacity:0.8;}
+  .footer-links{display:flex;gap:24px;font-size:12.5px;text-transform:uppercase;letter-spacing:0.06em;}
+  .legal{font-size:12px;line-height:1.7;margin-top:26px;max-width:900px;color:rgba(246,243,236,0.4);}
+
+  @media (max-width:900px){
+    nav.links{display:none;}
+    .menu-btn{display:block;}
+    .overview-grid,.club-layout,.plan-layout,.loc-grid,.contact-grid{grid-template-columns:1fr;}
+    .club-zones{grid-template-columns:1fr;}
+    .zone{border-left:none;}
+    .zone:nth-child(1){border-top:none;}
+    .stat-strip{grid-template-columns:repeat(2,1fr);}
+    .spec-grid{grid-template-columns:repeat(2,1fr);}
+    .pill-grid{grid-template-columns:1fr 1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .gallery-grid a:nth-child(1),.gallery-grid a:nth-child(4){grid-row:span 1;}
+    .video-grid{grid-template-columns:1fr;}
+    form{grid-template-columns:1fr;}
+  }
+  /* hero load-in sequence */
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(26px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .hero-anim{opacity:0;animation:fadeUp 0.9s cubic-bezier(.16,.8,.3,1) forwards;}
+  .hero .eyebrow.hero-anim{animation-delay:.15s;}
+  .hero h1.hero-anim{animation-delay:.3s;}
+  .hero .hero-sub.hero-anim{animation-delay:.5s;}
+  .hero .cta-row.hero-anim{animation-delay:.65s;}
+  .hero .stat-strip.hero-anim{animation-delay:.8s;}
+
+  /* scroll reveal */
+  .reveal{
+    opacity:0;transform:translateY(28px);
+    transition:opacity .8s cubic-bezier(.16,.8,.3,1), transform .8s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+
+  .reveal-stagger > *{
+    opacity:0;transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *:nth-child(1){transition-delay:.02s;}
+  .reveal-stagger > *:nth-child(2){transition-delay:.09s;}
+  .reveal-stagger > *:nth-child(3){transition-delay:.16s;}
+  .reveal-stagger > *:nth-child(4){transition-delay:.23s;}
+  .reveal-stagger > *:nth-child(5){transition-delay:.30s;}
+  .reveal-stagger > *:nth-child(6){transition-delay:.37s;}
+  .reveal-stagger > *:nth-child(7){transition-delay:.44s;}
+  .reveal-stagger > *:nth-child(8){transition-delay:.51s;}
+
+  /* subtle interactive lift */
+  .btn-primary,.btn-ghost,.nav-cta,.submit-btn{transition:background .2s,border-color .2s,transform .25s,box-shadow .25s;}
+  .btn-primary:hover,.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(176,141,87,0.28);}
+  .btn-ghost:hover{transform:translateY(-2px);}
+  .stat .num{transition:transform .3s;}
+  .stat:hover .num{transform:translateY(-3px);}
+  .gallery-grid img{transition:filter .35s, transform .6s cubic-bezier(.16,.8,.3,1);}
+  .pill{transition:transform .3s, box-shadow .3s;}
+  .pill:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(18,21,26,0.08);}
+  .zone{transition:background .3s;}
+  .zone:hover{background:rgba(203,167,110,0.06);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;animation:none !important;}
+    .reveal,.reveal-stagger > *,.hero-anim{opacity:1 !important;transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <img src="https://www.atsknightbridge.com/assets/kb-mark-D3yLZqe2.png" alt="KnightsBridge mark" referrerpolicy="no-referrer">
+      <span class="brand-word">Knights<span>Bridge</span> — an ATS home</span>
+    </a>
+    <nav class="links">
+      <a href="#overview">Overview</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#plans">Plans</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#specifications">Specifications</a>
+      <a href="#location">Location</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#enquire" class="nav-cta">Enquire</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="https://www.atsknightbridge.com/assets/elevation-hero-D5V8WNTv.webp" alt="Illuminated luxury residential towers at dusk beside landscaped gardens" referrerpolicy="no-referrer">
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow hero-anim">Riverfront District · Now unveiling</div>
+    <h1 class="hero-anim">A rarefied address<br>for a life <em>without compromise</em></h1>
+    <p class="hero-sub hero-anim">ATS KnightsBridge — crafted for the new-age nobility.</p>
+    <div class="cta-row hero-anim">
+      <a href="#enquire" class="btn-primary">Book a private preview</a>
+      <a href="#overview" class="btn-ghost">Explore the project</a>
+    </div>
+    <div class="stat-strip hero-anim">
+      <div class="stat"><div class="num" data-count="7.2" data-decimals="1">0</div><div class="label">Acres of landscape</div></div>
+      <div class="stat"><div class="num" data-count="44">0</div><div class="label">Storeys, five towers</div></div>
+      <div class="stat"><div class="num" data-count="1">0</div><div class="label">Residence per floor</div></div>
+      <div class="stat"><div class="num" data-count="55" data-suffix="K">0</div><div class="label">Sq. ft. clubhouse</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Project overview</span>
+      <h2>Designed for the few who collect landmarks</h2>
+      <p>Every element — proportion, light, material and outlook — has been shaped around a single idea: a residence that feels as considered on a quiet Tuesday as it does on a celebration night.</p>
+    </div>
+    <div class="overview-grid">
+      <ul class="feature-list reveal-stagger">
+        <li><span class="idx">01</span>Five sculpted towers of 44 storeys across 7.2 acres</li>
+        <li><span class="idx">02</span>A single private residence on every floor</li>
+        <li><span class="idx">03</span>Expansive 4-bed homes and two-level sky duplexes</li>
+        <li><span class="idx">04</span>Panoramic 360° river and skyline outlook</li>
+        <li><span class="idx">05</span>55,000 sq. ft. clubhouse across six lifestyle zones</li>
+        <li><span class="idx">06</span>Landscape masterplan by an award-winning studio</li>
+      </ul>
+      <div class="overview-media reveal">
+        <img src="https://www.atsknightbridge.com/assets/elevation-aerial-Cdkj8bN7.jpg" alt="Aerial night view of the illuminated towers, lagoon pool and landscaped podium" referrerpolicy="no-referrer">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="amenities">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Landscape amenities</span>
+      <h2>Twenty acres of experience, folded into seven</h2>
+      <p>A multi-layered planting palette of evergreens, flowering shrubs and grasses frames water bodies, courts and quiet corners across the ground plane.</p>
+    </div>
+    <div class="pill-grid reveal-stagger">
+      <div class="pill">Resort lagoon pool</div>
+      <div class="pill">Yoga &amp; meditation lawn</div>
+      <div class="pill">Forest walk &amp; jogging loop</div>
+      <div class="pill">Amphitheatre &amp; celebration lawn</div>
+      <div class="pill">Tennis, padel &amp; basketball courts</div>
+      <div class="pill">Kids' play park &amp; elders' garden</div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Clubhouse</span>
+      <h2>Six curated zones across 55,000 sq. ft.</h2>
+      <p>A private club at the heart of the estate, programmed so that leisure, wellness, work and hospitality never collide.</p>
+    </div>
+  </div>
+  <div class="wrap" style="max-width:1200px;">
+    <div class="club-layout reveal">
+      <div class="club-media">
+        <img src="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" alt="Clubhouse lounge interior with warm lighting and brass accents" referrerpolicy="no-referrer">
+      </div>
+      <div class="club-zones reveal-stagger">
+        <div class="zone"><h3>Leisure</h3><p>Private theatre, grand lobby, indoor &amp; outdoor lounges.</p></div>
+        <div class="zone"><h3>Wellness</h3><p>Spa, sauna, strength gym, yoga studio, pet care.</p></div>
+        <div class="zone"><h3>Play</h3><p>Squash, immersive gaming, table tennis, lap pool.</p></div>
+        <div class="zone"><h3>Business</h3><p>Boardroom, meeting suites, library, cigar room.</p></div>
+        <div class="zone"><h3>Culinary</h3><p>All-day restaurant, private dining, bar, banquet hall.</p></div>
+        <div class="zone"><h3>Everyday</h3><p>Pharmacy, gourmet grocer, concierge desk.</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="height:120px;"></div>
+</section>
+
+<section class="section" id="plans" style="background:var(--stone-deep);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Master plan &amp; floor plans</span>
+      <h2>Space, planned with intent</h2>
+      <p>Private and social zones are cleanly separated, service cores are tucked away, and every principal room opens to a deck or a view.</p>
+    </div>
+
+    <div class="overview-media reveal" style="margin-bottom:64px;">
+      <img src="https://www.atsknightbridge.com/assets/masterplan-CeB6o91d.jpg" alt="Illustrated master plan of the residential estate with towers, pool and courts" referrerpolicy="no-referrer">
+    </div>
+
+    <div class="dim-line" style="color:var(--charcoal);margin-bottom:28px;">
+      <span class="dim-label">The duplex residence</span>
+      <div class="tick-row"></div>
+      <span class="dim-label">Lower level · living, dining, terrace pool</span>
+    </div>
+
+    <div class="plan-tabs">
+      <button class="plan-tab active">Lower level</button>
+      <button class="plan-tab">Upper level</button>
+    </div>
+
+    <div class="plan-layout reveal">
+      <div class="plan-media">
+        <img src="https://www.atsknightbridge.com/assets/duplex-plan-lower-B2VKsOyk.avif" alt="Duplex lower-level floor plan showing double-height living and dining areas, kitchen, bedroom and terrace pool" referrerpolicy="no-referrer">
+      </div>
+      <div class="plan-schedule">
+        <p class="intro">Living, dining and entertaining — opening to the terrace, deck and private pool.</p>
+        <div class="room-row"><span>Double-height living area</span><span class="dim">9.51 × 6.40 m</span></div>
+        <div class="room-row"><span>Double-height dining &amp; bar</span><span class="dim">10.30 × 4.80 m</span></div>
+        <div class="room-row"><span>Kitchen</span><span class="dim">4.78 × 4.69 m</span></div>
+        <div class="room-row"><span>Bedroom 1 with dress</span><span class="dim">5.82 × 4.05 m</span></div>
+        <div class="room-row"><span>Terrace, deck &amp; pool</span><span class="dim">11.92 × 6.26 m</span></div>
+        <p class="plan-note">Dimensions are indicative and measured wall to wall. Furniture layouts shown are for representation only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="walkthrough">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Project walkthrough</span>
+      <h2>See the address in motion</h2>
+      <p>Two short films across the towers, the landscape and the clubhouse experience.</p>
+    </div>
+    <div class="video-grid reveal-stagger">
+      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/JOXHtoouloA" title="ATS KnightsBridge film 1" allowfullscreen></iframe></div>
+      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/JVpZigBgiwk" title="ATS KnightsBridge film 2" allowfullscreen></iframe></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallery" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Gallery</span>
+      <h2>A glimpse of everyday life here</h2>
+    </div>
+  </div>
+  <div class="gallery-grid reveal-stagger">
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-4-96JrYpb_.jpeg" alt="Expansive living and dining room of a sky residence with layered lighting" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-1-C_zxLXgb.jpeg" alt="Master bedroom with panelled headboard wall and herringbone oak floor" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-3-B-WSU8YO.jpeg" alt="Island kitchen with stone counters and integrated appliances" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-5-CbuPzHEW.jpeg" alt="Formal dining and lounge arrangement inside a duplex residence" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-6-CQ6zWIVm.jpeg" alt="Four-poster bedroom suite with a seating area and full-height windows" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-2-DaQyZQ45.jpeg" alt="Residents' lounge with velvet armchairs and curated artwork" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-9-B6-qfhTw.jpg" alt="Evening light across a residence bedroom lounge" referrerpolicy="no-referrer"></a>
+    <a href="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" target="_blank"><img src="https://www.atsknightbridge.com/assets/gallery-image-8-C4gEHhr4.jpg" alt="Guest suite with soft leather headboard and warm ambient lighting" referrerpolicy="no-referrer"></a>
+  </div>
+  <div style="height:120px;"></div>
+</section>
+
+<section class="section dark" id="specifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Specifications</span>
+      <h2>Finished to a standard you can feel</h2>
+      <p>Materials were selected for how they age — stone, oak and brass that gain character rather than lose it.</p>
+    </div>
+  </div>
+  <div class="spec-grid reveal-stagger">
+    <div class="spec"><span class="mono-tag">01 / Structure</span><h3>Structure</h3><p>Earthquake-resistant RCC shear-wall frame with high-grade concrete.</p></div>
+    <div class="spec"><span class="mono-tag">02 / Flooring</span><h3>Flooring</h3><p>Imported marble in living areas, engineered oak in bedrooms.</p></div>
+    <div class="spec"><span class="mono-tag">03 / Kitchen</span><h3>Kitchen</h3><p>Modular island kitchen with quartz counters and built-in appliances.</p></div>
+    <div class="spec"><span class="mono-tag">04 / Bathrooms</span><h3>Bathrooms</h3><p>Stone vanities, rain showers and premium European fittings.</p></div>
+    <div class="spec"><span class="mono-tag">05 / Windows</span><h3>Windows</h3><p>Double-glazed, low-E units with concealed drainage and screens.</p></div>
+    <div class="spec"><span class="mono-tag">06 / Smart Home</span><h3>Smart Home</h3><p>App-based lighting, climate, access control and video intercom.</p></div>
+    <div class="spec"><span class="mono-tag">07 / Air &amp; Water</span><h3>Air &amp; Water</h3><p>VRF climate control, fresh-air ventilation and RO water treatment.</p></div>
+    <div class="spec"><span class="mono-tag">08 / Security</span><h3>Security</h3><p>Five-tier access with boom barriers, CCTV and 24×7 patrols.</p></div>
+  </div>
+</section>
+
+<section class="section" id="location">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Location</span>
+      <h2>At the confluence of the river and the city</h2>
+      <p>Set on the riverfront edge of the expressway corridor, with the business district, retail and schools all within a short drive.</p>
+    </div>
+    <div class="loc-grid">
+      <ul class="loc-list reveal-stagger">
+        <li><span>City business district</span><span class="time">4 km · 9 min</span></li>
+        <li><span>International airport</span><span class="time">28 km · 40 min</span></li>
+        <li><span>Riverfront promenade</span><span class="time">1 km · 3 min</span></li>
+        <li><span>Premium mall &amp; cinema</span><span class="time">3 km · 7 min</span></li>
+        <li><span>International schools</span><span class="time">2.5 km · 6 min</span></li>
+        <li><span>Multi-speciality hospital</span><span class="time">3.5 km · 8 min</span></li>
+      </ul>
+      <div class="map-frame reveal">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=77.30%2C28.52%2C77.40%2C28.58&layer=mapnik" title="Location map"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Questions</span>
+      <h2>Frequently asked</h2>
+    </div>
+    <div id="faq-list" class="reveal-stagger">
+      <div class="faq-item open">
+        <button class="faq-q"><span><span class="num">01</span>What types of residences are available?</span><span class="plus">+</span></button>
+        <div class="faq-a" style="max-height:200px;"><p>Spacious 4-bed residences and duplexes of 6,000 sq. ft. and 10,000 sq. ft. saleable area respectively. With just one apartment per floor, the project ensures complete privacy and exclusivity along with 360° views of the skyline.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">02</span>Who is the architect and landscape designer?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>The towers are designed by Hafeez Contractor, and the landscapes are crafted by Integral Designs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">03</span>What amenities are available within the development?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Landscape amenities: sloping greens, pavilion, jogging track, yoga/meditation lawn, swimming pool, kids' pool, sit-out plaza, chaise loungers, outdoor gym, amphitheatre, celebration lawn, elderly park, dog's park, badminton court, tennis court, basketball court, cricket practice net and kids play area. The 50,000 sq. ft. clubhouse consists of 6 curated lifestyle zones: leisure, wellness, play, business centre, food and utility.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">04</span>Where is the project located?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>In Sector 124 at the gateway of the Noida–Greater Noida Expressway, right off Mahamaya Flyover, at the cusp of South Delhi and Noida.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">05</span>How many towers are there and what is the project size?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>There are five towers of 47 storeys each, spread across 6.15 acres of landscaped development.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span><span class="num">06</span>Why choose the developer?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Known for delivering high-quality homes with modern design and premium amenities across Noida, Gurugram and other major cities since 1998 — 35+ projects delivered, 23+ under development, 4.6+ million sq. m. delivered and 35,000+ happy customers.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="enquire" style="padding-top:100px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Keep in touch</span>
+      <h2>Arrange your private preview</h2>
+      <p>Share a few details and a residence advisor will curate a walkthrough of the experience centre, the show residence and the available inventory.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="block">
+          <h3>Call</h3>
+          <a href="tel:+918860420055" class="phone">+91 88604 20055</a>
+        </div>
+        <div class="block">
+          <h3>Site office</h3>
+          <p>Plot No. A-01/a, Sector 124,<br>Gautam Buddha Nagar, Noida, Uttar Pradesh</p>
+        </div>
+        <div class="block">
+          <h3>Corporate office</h3>
+          <p>Plot No. 16, ATS Tower, Sector 135,<br>Noida, Uttar Pradesh 201305</p>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Thank you — a residence advisor will be in touch shortly.');">
+        <input class="full" type="text" placeholder="Full name" required>
+        <input type="email" placeholder="Email address" required>
+        <input type="tel" placeholder="Phone" required>
+        <select class="full" required>
+          <option value="" disabled selected>Residence of interest</option>
+          <option>4-bed sky residence</option>
+          <option>Duplex penthouse</option>
+          <option>Investment enquiry</option>
+        </select>
+        <textarea class="full" placeholder="Message"></textarea>
+        <button class="submit-btn" type="submit">Request a private preview</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="https://www.atsknightbridge.com/assets/kb-mark-D3yLZqe2.png" alt="KnightsBridge mark" referrerpolicy="no-referrer">
+        <span class="mono" style="font-size:12px;letter-spacing:0.06em;">KnightsBridge, an ATS home</span>
+      </div>
+      <div class="footer-links">
+        <a href="#overview">Overview</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#plans">Plans</a>
+        <a href="#walkthrough">Walkthrough</a>
+        <a href="#enquire">Contact</a>
+      </div>
+    </div>
+    <p class="legal">The project has been registered via UpRERA registration number: UPRERAPRJ3574 and is available under registered projects. <a href="https://www.up-rera.in" style="text-decoration:underline;">www.up-rera.in</a><br><br>
+    Images and plans are artistic representations for illustrative purposes. Areas, specifications and amenities are indicative and subject to change by the developer.<br><br>
+    © 2026 ATS KnightsBridge. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Count-up hero stats
+  function animateCount(el){
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.stat .num[data-count]').forEach(el=>{
+    if(prefersReduced){
+      const t = parseFloat(el.dataset.count);
+      el.textContent = (el.dataset.decimals ? t.toFixed(parseInt(el.dataset.decimals,10)) : Math.round(t)) + (el.dataset.suffix||'');
+    } else {
+      setTimeout(()=>animateCount(el), 900);
+    }
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -60px 0px'});
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in-view'));
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 40 + 'px';
+      }
+    });
+  });
+
+  // Floor plan tabs (both levels use the same available image; swap caption/state)
+  const tabs = document.querySelectorAll('.plan-tab');
+  const scheduleIntro = document.querySelector('.plan-schedule .intro');
+  const lowerText = "Living, dining and entertaining — opening to the terrace, deck and private pool.";
+  const upperText = "Private sleeping quarters and family lounge on the upper level, set above the entertaining floor.";
+  tabs.forEach((tab,i)=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      scheduleIntro.textContent = i===0 ? lowerText : upperText;
+    });
+  });
+</script>
+
+</body>
+</html>
